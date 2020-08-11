@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>MikeFactorial.Xrm.Plugins.FetchToSql</AssemblyName>
+    <RootNamespace>MikeFactorial.Xrm.Plugins.FetchToSql</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CrmSdk.CoreAssemblies" Version="9.0.2.26" />
+  </ItemGroup>
+
+</Project>
