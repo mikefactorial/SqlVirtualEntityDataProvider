@@ -14,7 +14,7 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
     /// <summary>
     /// Virtual Entity Data Provider for SQL
     /// </summary>
-    public class SqlVirtualEntityDataProvider : EntityPluginBase
+    public class SqlVirtualEntityDataProvider : PluginBase
     {
         /// <summary>
         /// Handles the entity retrieve message.
@@ -31,20 +31,10 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
                 string sql = $"SELECT * FROM {context.PluginContext.PrimaryEntityName} WITH(NOLOCK) WHERE {mapper.PrimaryEntityMetadata.PrimaryIdAttribute} = '{mapper.MapToVirtualEntityValue(mapper.PrimaryEntityMetadata.PrimaryIdAttribute, context.PluginContext.PrimaryEntityId)}'";
                 sql = mapper.MapVirtualEntityAttributes(sql);
 
-                using (SqlConnection sqlConnection = new SqlConnection(context.GetSqlConnectionString()))
+                var entities = this.GetEntitiesFromSql(context, mapper, sql, 1, 1);
+                if (entities.Entities != null && entities.Entities.Count > 0)
                 {
-                    SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sql, sqlConnection);
-                    DataSet dataSet = new DataSet();
-                    sqlConnection.Open();
-                    sqlDataAdapter.Fill(dataSet, "DxtrData");
-                    sqlConnection.Close();
-                    context.Trace($"Records Retrieved: {dataSet.Tables[0].Rows.Count}", Array.Empty<object>());
-
-                    var collection = mapper.CreateEntities(dataSet, 1, 1);
-                    if (collection.Entities != null && collection.Entities.Count > 0)
-                    {
-                        entity = collection.Entities[0];
-                    }
+                    entity = entities.Entities[0];
                 }
             }
 
@@ -68,13 +58,29 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
             convertRequest.Query = qe;
             var response = (QueryExpressionToFetchXmlResponse)context.Service.Execute(convertRequest);
             context.Trace($"FetchXML: {response.FetchXml}");
-            FetchToSqlTranslator translator = new FetchToSqlTranslator(context.Service, mapper);
+            FetchToSqlVisitor Visitor = new FetchToSqlVisitor(context.Service, mapper);
             var fetch = FetchType.Deserialize(response.FetchXml);
-            string sql = translator.GetSQLQuery(fetch);
+            string sql = Visitor.Visit(fetch);
 
             sql = mapper.MapVirtualEntityAttributes(sql);
 
+            if (Int32.TryParse(fetch.page, out int pageNumber) && Int32.TryParse(fetch.count, out int pageSize))
+            {
+                collection = this.GetEntitiesFromSql(context, mapper, sql, pageSize, pageNumber);
+            }
+            else
+            {
+                collection = this.GetEntitiesFromSql(context, mapper, sql, -1, 1);
+            }
+
+            context.Trace($"Records Returned: {collection.Entities.Count}");
+            context.PluginContext.OutputParameters["BusinessEntityCollection"] = collection;
+        }
+
+        private EntityCollection GetEntitiesFromSql(PluginExecutionContext context, GenericMapper mapper, string sql, int pageSize, int pageNumber)
+        {
             context.Trace($"SQL: {sql}");
+            EntityCollection collection = new EntityCollection();
             using (SqlConnection sqlConnection = new SqlConnection(context.GetSqlConnectionString()))
             {
                 SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sql, sqlConnection);
@@ -83,18 +89,9 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
                 sqlDataAdapter.Fill(dataSet, "SqlData");
                 sqlConnection.Close();
                 context.Trace($"Records Retrieved: {dataSet.Tables[0].Rows.Count}", Array.Empty<object>());
-                if(Int32.TryParse(fetch.page, out int page) && Int32.TryParse(fetch.count, out int count))
-                {
-                    collection = mapper.CreateEntities(dataSet, count, page);
-                }
-                else
-                {
-                    collection = mapper.CreateEntities(dataSet, -1, 1);
-                }
+                collection = mapper.CreateEntities(dataSet, pageSize, pageNumber);
             }
-
-            context.Trace($"Records Returned: {collection.Entities.Count}");
-            context.PluginContext.OutputParameters["BusinessEntityCollection"] = collection;
+            return collection;
         }
     }
 }

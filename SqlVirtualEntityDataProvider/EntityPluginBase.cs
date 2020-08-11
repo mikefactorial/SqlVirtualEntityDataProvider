@@ -46,47 +46,17 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
         Async = 1            
     }
 
-    /// <summary>
-    /// Base class for entity plugins to derive from. This has been excluded  
-    /// from code coverage metrics because its overridden methods will be unit tested. 
-    /// </summary>
-    /// <seealso cref="Microsoft.Xrm.Sdk.IPlugin" />
-    [ExcludeFromCodeCoverage]
-    public abstract class EntityPluginBase : IPlugin
+    public abstract class PluginBase : IPlugin
     {
-        #region Secure/Unsecure Configuration Setup
-        private readonly string secureConfig = null;
-        private readonly string unsecureConfig = null;
-        #endregion
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EntityPluginBase"/> class.
-        /// </summary>
-        protected EntityPluginBase()
+        protected PluginBase()
         {
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EntityPluginBase"/> class.
-        /// </summary>
-        /// <param name="unsecureConfig">The unsecure configuration.</param>
-        /// <param name="secureConfig">The secure configuration.</param>
-        protected EntityPluginBase(string unsecureConfig, string secureConfig)
-        {
-            this.secureConfig = secureConfig;
-            this.unsecureConfig = unsecureConfig;
-        }
-
-        /// <summary>
-        /// Executes plug-in code in response to an event.
-        /// </summary>
-        /// <param name="serviceProvider">Type: IService_Provider. A container for service objects. Contains references to the plug-in execution context (<see cref="T:Microsoft.Xrm.Sdk.IPluginExecutionContext" />), tracing service (<see cref="T:Microsoft.Xrm.Sdk.ITracingService" />), organization service (<see cref="T:Microsoft.Xrm.Sdk.IOrganizationServiceFactory" />), and notification service (<see cref="T:Microsoft.Xrm.Sdk.IServiceEndpointNotificationService" />).</param>
-        /// <exception cref="NotImplementedException">The message: {context.PluginContext.MessageName} is not supported</exception>
-        /// <exception cref="InvalidPluginExecutionException">Thrown for exceptions that occur in the plugin</exception>
         public virtual void Execute(IServiceProvider serviceProvider)
         {
             try
             {
-                PluginExecutionContext context = new PluginExecutionContext(serviceProvider, secureConfig, unsecureConfig);
+                PluginExecutionContext context = new PluginExecutionContext(serviceProvider);
 
                 switch (context.PluginContext.MessageName)
                 {

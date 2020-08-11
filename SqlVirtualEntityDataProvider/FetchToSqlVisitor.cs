@@ -12,7 +12,7 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
     /// <summary>
     /// Converts FetchXml to SQL
     /// </summary>
-    public class FetchToSqlTranslator
+    public class FetchToSqlVisitor
     {
         private Dictionary<string, string> aliasmap;
         private List<string> selectcols;
@@ -21,13 +21,13 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
         private IOrganizationService organizationService;
         private GenericMapper mapper;
 
-        public FetchToSqlTranslator(IOrganizationService service, GenericMapper mapper)
+        public FetchToSqlVisitor(IOrganizationService service, GenericMapper mapper)
         {
             this.organizationService = service;
             this.mapper = mapper;
         }
 
-        public string GetSQLQuery(FetchType fetch)
+        public string Visit(FetchType fetch)
         {
             aliasmap = new Dictionary<string, string>();
             var sql = new StringBuilder();
