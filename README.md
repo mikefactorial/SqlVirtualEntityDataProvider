@@ -3,6 +3,14 @@ A Virtual Entity Provider using a direct SQL Connection to Azure SQL / SQL On-Pr
 
 The project includes a manaaged / unmanaged solution that you can import and configure for a quick start to creating SQL based Virtual Entities as well as the source code to customize to your specific requirements.
 
+<!-- wp:paragraph -->
+Features:
+
+Display SQL Tables as Virtual Entities using only a connection string to your SQL instance
+Automatically convert FetchXml queries to SQL (Limited but will include more capabilities going forward)
+Automatically convert integer key values to guids without the need for a guid column in the Azure SQL table
+Display Virtual Entities as lookups on OOB or custom entities or other virtual entities.
+
 You can get started using the Sample App using the instructions below. More to follow with respect to configuring the Provider for personal / corporate use outside of the provided sample App.
 <!-- wp:list {"ordered":true} -->
 <ol><li>Required: A Dynamics 365 or Power Apps Subscription</li><li>Required: An Azure Subscription with Rights to Create Resources</li><li>Optional: SQL Server Management Studio (to test your connection)</li></ol>
@@ -53,5 +61,5 @@ You can get started using the Sample App using the instructions below. More to f
 <!-- /wp:image -->
 
 <!-- wp:list -->
-<ul><li>Click on Products or Product Categories from the Left Menu to see the Products and Categories stored in Azure SQL.<ul><li>NOTE: If you get an error at this point read on for configuring your Azure SQL Firewall to allow connections from CDS.</li></ul></li></ul>
+<ul><li>Click on Products or Product Categories from the Left Menu to see the Products and Categories stored in Azure SQL.<ul><li>NOTE: If you get an error at this point it could be related to your Azure SQL Firewall and as such you may need to allow specific IPs through.</li></ul></li></ul>
 <!-- /wp:list -->
