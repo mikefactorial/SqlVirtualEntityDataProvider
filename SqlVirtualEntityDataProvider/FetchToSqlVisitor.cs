@@ -304,8 +304,7 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
                 var req = new RetrieveAttributeRequest
                 {
                     EntityLogicalName = entityname,
-                    LogicalName = condition.attribute,
-                    RetrieveAsIfPublished = true
+                    LogicalName = condition.attribute
                 };
                 var retrieveAttributeResponse = (RetrieveAttributeResponse)organizationService.Execute(req);
 
