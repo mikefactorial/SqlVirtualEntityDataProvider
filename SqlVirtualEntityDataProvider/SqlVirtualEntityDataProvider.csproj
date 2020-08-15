@@ -75,8 +75,11 @@
   <ItemGroup>
     <None Include="MikeFactorial.pfx" />
     <None Include="packages.config" />
-    <None Include="Solutions\VirtualEntityProvidersbyMike_1_0_0_1_managed.zip" />
-    <None Include="Solutions\VirtualEntityProvidersbyMike_1_0_0_1.zip" />
+    <None Include="Solutions\VirtualEntityProvidersbyMike_1_0_0_2.zip" />
+    <None Include="Solutions\VirtualEntityProvidersbyMike_1_0_0_2_managed.zip" />
+    <None Include="Solutions\VirtualEntityProvidersSamplebyMike_1_0_0_2.zip" />
+    <None Include="Solutions\VirtualEntityProvidersSamplebyMike_1_0_0_2_managed.zip" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
