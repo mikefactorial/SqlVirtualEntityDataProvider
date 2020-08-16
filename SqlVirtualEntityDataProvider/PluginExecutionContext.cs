@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xrm.Sdk;
 using System;
-using System.Linq;
 
 namespace MikeFactorial.Xrm.Plugins.DataProviders
 {

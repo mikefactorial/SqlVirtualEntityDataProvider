@@ -1,11 +1,8 @@
 using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk;
-using Microsoft.Xrm.Sdk.Messages;
-using Microsoft.Xrm.Sdk.Metadata;
 using Microsoft.Xrm.Sdk.Query;
 using MikeFactorial.Xrm.Plugins.DataProviders.Mappers;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
