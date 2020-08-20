@@ -1,4 +1,5 @@
-﻿using Microsoft.Xrm.Sdk;
+﻿using MarkMpn.Sql4Cds.Engine.FetchXml;
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Metadata;
 using Microsoft.Xrm.Sdk.Query;
@@ -40,6 +41,60 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders.Mappers
 
                 return primaryEntityMetadata;
             }
+        }
+
+        public virtual void MapFetchXml(object fetch)
+        {
+            if (fetch is condition cond)
+            {
+                if(!string.IsNullOrEmpty(cond.value))
+                {
+                    cond.value = MapToVirtualEntityValue(cond.attribute, cond.value).ToString();
+                }
+                else if (cond.Items.Length > 0)
+                {
+                    for (int i = 0; i < cond.Items.Length; i++)
+                    {
+                        context.Trace($"PreConvert: {cond.Items[i].Value}");
+                        cond.Items[i].Value = MapToVirtualEntityValue(cond.attribute, cond.Items[i].Value).ToString();
+                        context.Trace($"PostConvert: {cond.Items[i].Value}");
+                    }
+                }
+            }
+
+            if (fetch is FetchType ft)
+            {
+                for (int i = 0; i < ft.Items.Length; i++)
+                {
+                    object item = ft.Items[i];
+                    MapFetchXml(item);
+                }
+            }
+            else if (fetch is FetchEntityType fet)
+            {
+                for (int i = 0; i < fet.Items.Length; i++)
+                {
+                    object item = fet.Items[i];
+                    MapFetchXml(item);
+                }
+            }
+            else if (fetch is FetchLinkEntityType felt)
+            {
+                for (int i = 0; i < felt.Items.Length; i++)
+                {
+                    object item = felt.Items[i];
+                    MapFetchXml(item);
+                }
+            }
+            else if (fetch is filter filt)
+            {
+                for (int i = 0; i < filt.Items.Length; i++)
+                {
+                    object item = filt.Items[i];
+                    MapFetchXml(item);
+                }
+            }
+
         }
 
         public virtual string MapVirtualEntityAttributes(string sql)
@@ -114,12 +169,12 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders.Mappers
                 //This is a generic method of creating a guid from an int value if no guid is available in the database
                 return new Guid(keyInt.ToString().PadLeft(32, 'a'));
             }
-            else if (entityAttribute is LookupAttributeMetadata && Int32.TryParse(value.ToString(), out int lookupInt))
+            else if (entityAttribute is LookupAttributeMetadata lookupAttr && Int32.TryParse(value.ToString(), out int lookupInt))
             {
-                var lookup = new EntityReference(((LookupAttributeMetadata)entityAttribute).Targets[0], new Guid(lookupInt.ToString().PadLeft(32, 'a')));
+                var lookup = new EntityReference(lookupAttr.Targets[0], new Guid(lookupInt.ToString().PadLeft(32, 'a')));
                 return lookup;
             }
-            else if (entityAttribute is PicklistAttributeMetadata && Int32.TryParse(value.ToString(), out int picklistInt))
+            else if ((entityAttribute is StatusAttributeMetadata || entityAttribute is StateAttributeMetadata || entityAttribute is PicklistAttributeMetadata) && Int32.TryParse(value.ToString(), out int picklistInt))
             {
                 return new OptionSetValue(picklistInt);
             }

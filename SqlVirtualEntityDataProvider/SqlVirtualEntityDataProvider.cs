@@ -1,3 +1,5 @@
+using MarkMpn.Sql4Cds.Engine;
+using MarkMpn.Sql4Cds.Engine.FetchXml;
 using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
@@ -5,6 +7,9 @@ using MikeFactorial.Xrm.Plugins.DataProviders.Mappers;
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace MikeFactorial.Xrm.Plugins.DataProviders
 {
@@ -47,31 +52,43 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
         {
             base.HandleEntityRetrieveMultipleMessage(context);
 
-            var qe = (QueryExpression)context.PluginContext.InputParameters["Query"];
-            var mapper = new GenericMapper(context);
-
-            EntityCollection collection = new EntityCollection();
-            QueryExpressionToFetchXmlRequest convertRequest = new QueryExpressionToFetchXmlRequest();
-            convertRequest.Query = qe;
-            var response = (QueryExpressionToFetchXmlResponse)context.Service.Execute(convertRequest);
-            context.Trace($"FetchXML: {response.FetchXml}");
-            FetchToSqlVisitor Visitor = new FetchToSqlVisitor(context.Service, mapper);
-            var fetch = FetchType.Deserialize(response.FetchXml);
-            string sql = Visitor.Visit(fetch);
-
-            sql = mapper.MapVirtualEntityAttributes(sql);
-
-            if (Int32.TryParse(fetch.page, out int pageNumber) && Int32.TryParse(fetch.count, out int pageSize))
+            var query = context.PluginContext.InputParameters["Query"];
+            if (query != null)
             {
-                collection = this.GetEntitiesFromSql(context, mapper, sql, pageSize, pageNumber);
-            }
-            else
-            {
-                collection = this.GetEntitiesFromSql(context, mapper, sql, -1, 1);
-            }
+                var mapper = new GenericMapper(context);
 
-            context.Trace($"Records Returned: {collection.Entities.Count}");
-            context.PluginContext.OutputParameters["BusinessEntityCollection"] = collection;
+                EntityCollection collection = new EntityCollection();
+                string fetchXml = query.ToString();
+                if (query is QueryExpression qe)
+                {
+                    var convertRequest = new QueryExpressionToFetchXmlRequest();
+                    convertRequest.Query = (QueryExpression)qe;
+                    var response = (QueryExpressionToFetchXmlResponse)context.Service.Execute(convertRequest);
+                    fetchXml = response.FetchXml;
+                }
+                context.Trace($"Pre FetchXML: {fetchXml}");
+
+                var metadata = new AttributeMetadataCache(context.Service);
+                var fetch = Deserialize(fetchXml);
+                mapper.MapFetchXml(fetch);
+
+                var sql = FetchXml2Sql.Convert(metadata, fetch, new FetchXml2SqlOptions { PreserveFetchXmlOperatorsAsFunctions = false }, out _);
+
+                sql = mapper.MapVirtualEntityAttributes(sql);
+                context.Trace($"SQL: {sql}");
+
+                if (Int32.TryParse(fetch.page, out int pageNumber) && Int32.TryParse(fetch.count, out int pageSize))
+                {
+                    collection = this.GetEntitiesFromSql(context, mapper, sql, pageSize, pageNumber);
+                }
+                else
+                {
+                    collection = this.GetEntitiesFromSql(context, mapper, sql, -1, 1);
+                }
+
+                context.Trace($"Records Returned: {collection.Entities.Count}");
+                context.PluginContext.OutputParameters["BusinessEntityCollection"] = collection;
+            }
         }
 
         private EntityCollection GetEntitiesFromSql(PluginExecutionContext context, GenericMapper mapper, string sql, int pageSize, int pageNumber)
@@ -90,5 +107,23 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
             }
             return collection;
         }
+
+        /// <summary>
+        /// Deserializes the fetch XML.
+        /// </summary>
+        /// <param name="fetchXml">The fetch XML.</param>
+        /// <returns>Fetch Object for the FetchXML string</returns>
+        private static FetchType Deserialize(string fetchXml)
+        {
+            var serializer = new XmlSerializer(typeof(FetchType));
+            object result;
+            using (TextReader reader = new StringReader(fetchXml))
+            {
+                result = serializer.Deserialize(reader);
+            }
+
+            return result as FetchType;
+        }
+
     }
 }

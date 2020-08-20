@@ -62,11 +62,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Packages\MarkMpn.Sql4Cds.Engine\AttributeMetadataCache.cs" />
+    <Compile Include="App_Packages\MarkMpn.Sql4Cds.Engine\FetchXml.cs" />
+    <Compile Include="App_Packages\MarkMpn.Sql4Cds.Engine\FetchXml2Sql.cs" />
+    <Compile Include="App_Packages\MarkMpn.Sql4Cds.Engine\IAttributeMetadataCache.cs" />
+    <Compile Include="App_Packages\MarkMpn.Sql4Cds.Engine\ScriptDom.cs" />
     <Compile Include="BaseExecutionContext.cs" />
     <Compile Include="EntityPluginBase.cs" />
     <Compile Include="EnvironmentSpecificExtensions.cs" />
-    <Compile Include="FetchEntity.cs" />
-    <Compile Include="FetchToSqlVisitor.cs" />
     <Compile Include="Mappers\GenericMapper.cs" />
     <Compile Include="PluginExecutionContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
