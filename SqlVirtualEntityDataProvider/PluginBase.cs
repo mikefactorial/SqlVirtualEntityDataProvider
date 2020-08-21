@@ -101,7 +101,7 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
         /// Handles the entity pre create message.
         /// </summary>
         /// <param name="context">The plugin execution context.</param>
-        public virtual void HandleEntityPreCreateMessage(PluginExecutionContext context)
+        public virtual void HandlePreCreateMessage(PluginExecutionContext context)
         {
         }
 
@@ -109,7 +109,7 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
         /// Handles the entity post create message.
         /// </summary>
         /// <param name="context">The plugin execution context.</param>
-        public virtual void HandleEntityPostCreateMessage(PluginExecutionContext context)
+        public virtual void HandlePostCreateMessage(PluginExecutionContext context)
         {
         }
 
@@ -117,7 +117,7 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
         /// Handles the entity post create asynchronous message.
         /// </summary>
         /// <param name="context">The plugin execution context.</param>
-        public virtual void HandleEntityPostCreateAsyncMessage(PluginExecutionContext context)
+        public virtual void HandlePostCreateAsyncMessage(PluginExecutionContext context)
         {
         }
 
@@ -125,7 +125,7 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
         /// Handles the entity pre delete message.
         /// </summary>
         /// <param name="context">The plugin execution context.</param>
-        public virtual void HandleEntityPreDeleteMessage(PluginExecutionContext context)
+        public virtual void HandlePreDeleteMessage(PluginExecutionContext context)
         {
         }
 
@@ -133,7 +133,7 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
         /// Handles the entity post delete message.
         /// </summary>
         /// <param name="context">The plugin execution context.</param>
-        public virtual void HandleEntityPostDeleteMessage(PluginExecutionContext context)
+        public virtual void HandlePostDeleteMessage(PluginExecutionContext context)
         {
         }
 
@@ -141,7 +141,7 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
         /// Handles the entity post delete asynchronous message.
         /// </summary>
         /// <param name="context">The plugin execution context.</param>
-        public virtual void HandleEntityPostDeleteAsyncMessage(PluginExecutionContext context)
+        public virtual void HandlePostDeleteAsyncMessage(PluginExecutionContext context)
         {
         }
 
@@ -149,7 +149,7 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
         /// Handles the entity pre retrieve message.
         /// </summary>
         /// <param name="context">The plugin execution context.</param>
-        public virtual void HandleEntityPreRetrieveMessage(PluginExecutionContext context)
+        public virtual void HandlePreRetrieveMessage(PluginExecutionContext context)
         {
         }
 
@@ -157,7 +157,7 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
         /// Handles the entity post retrieve message.
         /// </summary>
         /// <param name="context">The plugin execution context.</param>
-        public virtual void HandleEntityPostRetrieveMessage(PluginExecutionContext context)
+        public virtual void HandlePostRetrieveMessage(PluginExecutionContext context)
         {
         }
 
@@ -165,7 +165,7 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
         /// Handles the entity post retrieve asynchronous message.
         /// </summary>
         /// <param name="context">The plugin execution context.</param>
-        public virtual void HandleEntityPostRetrieveAsyncMessage(PluginExecutionContext context)
+        public virtual void HandlePostRetrieveAsyncMessage(PluginExecutionContext context)
         {
         }
 
@@ -173,7 +173,7 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
         /// Handles the entity retrieve message.
         /// </summary>
         /// <param name="context">The context.</param>
-        public virtual void HandleEntityRetrieveMessage(PluginExecutionContext context)
+        public virtual void HandleRetrieveMessage(PluginExecutionContext context)
         {
         }
 
@@ -181,7 +181,7 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
         /// Handles the entity pre retrieve multiple message.
         /// </summary>
         /// <param name="context">The plugin execution context.</param>
-        public virtual void HandleEntityPreRetrieveMultipleMessage(PluginExecutionContext context)
+        public virtual void HandlePreRetrieveMultipleMessage(PluginExecutionContext context)
         {
         }
 
@@ -189,7 +189,7 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
         /// Handles the entity post retrieve multiple message.
         /// </summary>
         /// <param name="context">The plugin execution context.</param>
-        public virtual void HandleEntityPostRetrieveMultipleMessage(PluginExecutionContext context)
+        public virtual void HandlePostRetrieveMultipleMessage(PluginExecutionContext context)
         {
         }
 
@@ -197,7 +197,7 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
         /// Handles the entity post retrieve multiple asynchronous message.
         /// </summary>
         /// <param name="context">The plugin execution context.</param>
-        public virtual void HandleEntityPostRetrieveMultipleAsyncMessage(PluginExecutionContext context)
+        public virtual void HandlePostRetrieveMultipleAsyncMessage(PluginExecutionContext context)
         {
         }
 
@@ -205,7 +205,7 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
         /// Handles the entity retrieve multiple message.
         /// </summary>
         /// <param name="context">The context.</param>
-        public virtual void HandleEntityRetrieveMultipleMessage(PluginExecutionContext context)
+        public virtual void HandleRetrieveMultipleMessage(PluginExecutionContext context)
         {
         }
 
@@ -213,7 +213,7 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
         /// Handles the entity pre update message.
         /// </summary>
         /// <param name="context">The plugin execution context.</param>
-        public virtual void HandleEntityPreUpdateMessage(PluginExecutionContext context)
+        public virtual void HandlePreUpdateMessage(PluginExecutionContext context)
         {
         }
 
@@ -221,7 +221,7 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
         /// Handles the entity post update message.
         /// </summary>
         /// <param name="context">The plugin execution context.</param>
-        public virtual void HandleEntityPostUpdateMessage(PluginExecutionContext context)
+        public virtual void HandlePostUpdateMessage(PluginExecutionContext context)
         {
         }
 
@@ -229,7 +229,7 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
         /// Handles the entity post update asynchronous message.
         /// </summary>
         /// <param name="context">The plugin execution context.</param>
-        public virtual void HandleEntityPostUpdateAsyncMessage(PluginExecutionContext context)
+        public virtual void HandlePostUpdateAsyncMessage(PluginExecutionContext context)
         {
         }
 
@@ -237,7 +237,7 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
         /// Handles the entity pre associate message.
         /// </summary>
         /// <param name="context">The plugin execution context.</param>
-        public virtual void HandleEntityPreAssociateMessage(PluginExecutionContext context)
+        public virtual void HandlePreAssociateMessage(PluginExecutionContext context)
         {
         }
 
@@ -245,7 +245,7 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
         /// Handles the entity post associate message.
         /// </summary>
         /// <param name="context">The plugin execution context.</param>
-        public virtual void HandleEntityPostAssociateMessage(PluginExecutionContext context)
+        public virtual void HandlePostAssociateMessage(PluginExecutionContext context)
         {
         }
 
@@ -253,7 +253,7 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
         /// Handles the entity post associate asynchronous message.
         /// </summary>
         /// <param name="context">The plugin execution context.</param>
-        public virtual void HandleEntityPostAssociateAsyncMessage(PluginExecutionContext context)
+        public virtual void HandlePostAssociateAsyncMessage(PluginExecutionContext context)
         {
         }
 
@@ -261,7 +261,7 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
         /// Handles the entity pre disassociate message.
         /// </summary>
         /// <param name="context">The plugin execution context.</param>
-        public virtual void HandleEntityPreDisassociateMessage(PluginExecutionContext context)
+        public virtual void HandlePreDisassociateMessage(PluginExecutionContext context)
         {
         }
 
@@ -269,7 +269,7 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
         /// Handles the entity post disassociate message.
         /// </summary>
         /// <param name="context">The plugin execution context.</param>
-        public virtual void HandleEntityPostDisassociateMessage(PluginExecutionContext context)
+        public virtual void HandlePostDisassociateMessage(PluginExecutionContext context)
         {
         }
 
@@ -277,7 +277,7 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
         /// Handles the entity post disassociate asynchronous message.
         /// </summary>
         /// <param name="context">The plugin execution context.</param>
-        public virtual void HandleEntityPostDisassociateAsyncMessage(PluginExecutionContext context)
+        public virtual void HandlePostDisassociateAsyncMessage(PluginExecutionContext context)
         {
         }
 
@@ -285,22 +285,22 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
         {
             if (IsPreOperation(context))
             {
-                HandleEntityPreCreateMessage(context);
+                HandlePreCreateMessage(context);
             }
             else if (IsPostOperation(context))
             {
                 if (IsAsyncPlugin(context))
                 {
-                    HandleEntityPostCreateAsyncMessage(context);
+                    HandlePostCreateAsyncMessage(context);
                 }
                 else
                 {
-                    HandleEntityPostCreateMessage(context);
+                    HandlePostCreateMessage(context);
                 }
             }
             else
             {
-                ThrowMessageNotFoundError(context.PluginContext.MessageName, context.PluginContext.Stage);
+                ThrowMessageNotFoundException(context.PluginContext.MessageName, context.PluginContext.Stage);
             }
         }
 
@@ -308,22 +308,22 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
         {
             if (IsPreOperation(context))
             {
-                HandleEntityPreDeleteMessage(context);
+                HandlePreDeleteMessage(context);
             }
             else if (IsPostOperation(context))
             {
                 if (IsAsyncPlugin(context))
                 {
-                    HandleEntityPostDeleteAsyncMessage(context);
+                    HandlePostDeleteAsyncMessage(context);
                 }
                 else
                 {
-                    HandleEntityPostDeleteMessage(context);
+                    HandlePostDeleteMessage(context);
                 }
             }
             else
             {
-                ThrowMessageNotFoundError(context.PluginContext.MessageName, context.PluginContext.Stage);
+                ThrowMessageNotFoundException(context.PluginContext.MessageName, context.PluginContext.Stage);
             }
         }
 
@@ -331,22 +331,22 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
         {
             if (IsPreOperation(context))
             {
-                HandleEntityPreRetrieveMessage(context);
+                HandlePreRetrieveMessage(context);
             }
             else if (IsPostOperation(context))
             {
                 if (IsAsyncPlugin(context))
                 {
-                    HandleEntityPostRetrieveAsyncMessage(context);
+                    HandlePostRetrieveAsyncMessage(context);
                 }
                 else
                 {
-                    HandleEntityPostRetrieveMessage(context);
+                    HandlePostRetrieveMessage(context);
                 }
             }
             else
             {
-                HandleEntityRetrieveMessage(context);
+                HandleRetrieveMessage(context);
             }
         }
 
@@ -354,22 +354,22 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
         {
             if (IsPreOperation(context))
             {
-                HandleEntityPreRetrieveMultipleMessage(context);
+                HandlePreRetrieveMultipleMessage(context);
             }
             else if (IsPostOperation(context))
             {
                 if (IsAsyncPlugin(context))
                 {
-                    HandleEntityPostRetrieveMultipleAsyncMessage(context);
+                    HandlePostRetrieveMultipleAsyncMessage(context);
                 }
                 else
                 {
-                    HandleEntityPostRetrieveMultipleMessage(context);
+                    HandlePostRetrieveMultipleMessage(context);
                 }
             }
             else
             {
-                HandleEntityRetrieveMultipleMessage(context);
+                HandleRetrieveMultipleMessage(context);
             }
         }
 
@@ -377,22 +377,22 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
         {
             if (IsPreOperation(context))
             {
-                HandleEntityPreUpdateMessage(context);
+                HandlePreUpdateMessage(context);
             }
             else if (IsPostOperation(context))
             {
                 if (IsAsyncPlugin(context))
                 {
-                    HandleEntityPostUpdateAsyncMessage(context);
+                    HandlePostUpdateAsyncMessage(context);
                 }
                 else
                 {
-                    HandleEntityPostUpdateMessage(context);
+                    HandlePostUpdateMessage(context);
                 }
             }
             else
             {
-                ThrowMessageNotFoundError(context.PluginContext.MessageName, context.PluginContext.Stage);
+                ThrowMessageNotFoundException(context.PluginContext.MessageName, context.PluginContext.Stage);
             }
         }
 
@@ -400,22 +400,22 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
         {
             if (IsPreOperation(context))
             {
-                HandleEntityPreAssociateMessage(context);
+                HandlePreAssociateMessage(context);
             }
             else if (IsPostOperation(context))
             {
                 if (IsAsyncPlugin(context))
                 {
-                    HandleEntityPostAssociateAsyncMessage(context);
+                    HandlePostAssociateAsyncMessage(context);
                 }
                 else
                 {
-                    HandleEntityPostAssociateMessage(context);
+                    HandlePostAssociateMessage(context);
                 }
             }
             else
             {
-                ThrowMessageNotFoundError(context.PluginContext.MessageName, context.PluginContext.Stage);
+                ThrowMessageNotFoundException(context.PluginContext.MessageName, context.PluginContext.Stage);
             }
         }
 
@@ -423,22 +423,22 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
         {
             if (IsPreOperation(context))
             {
-                HandleEntityPreDisassociateMessage(context);
+                HandlePreDisassociateMessage(context);
             }
             else if (IsPostOperation(context))
             {
                 if (IsAsyncPlugin(context))
                 {
-                    HandleEntityPostDisassociateAsyncMessage(context);
+                    HandlePostDisassociateAsyncMessage(context);
                 }
                 else
                 {
-                    HandleEntityPostDisassociateMessage(context);
+                    HandlePostDisassociateMessage(context);
                 }
             }
             else
             {
-                ThrowMessageNotFoundError(context.PluginContext.MessageName, context.PluginContext.Stage);
+                ThrowMessageNotFoundException(context.PluginContext.MessageName, context.PluginContext.Stage);
             }
         }
 
@@ -457,7 +457,7 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
             return context.PluginContext.Mode == (int)PluginMode.Async;
         }
 
-        private void ThrowMessageNotFoundError(string messageName, int stage)
+        private void ThrowMessageNotFoundException(string messageName, int stage)
         {
             throw new InvalidPluginExecutionException($"The message '{messageName}' is not supported in stage {stage}");
         }

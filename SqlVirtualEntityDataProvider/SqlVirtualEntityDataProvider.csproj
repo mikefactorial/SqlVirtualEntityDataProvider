@@ -68,7 +68,7 @@
     <Compile Include="App_Packages\MarkMpn.Sql4Cds.Engine\IAttributeMetadataCache.cs" />
     <Compile Include="App_Packages\MarkMpn.Sql4Cds.Engine\ScriptDom.cs" />
     <Compile Include="BaseExecutionContext.cs" />
-    <Compile Include="EntityPluginBase.cs" />
+    <Compile Include="PluginBase.cs" />
     <Compile Include="EnvironmentSpecificExtensions.cs" />
     <Compile Include="Mappers\GenericMapper.cs" />
     <Compile Include="PluginExecutionContext.cs" />

@@ -22,9 +22,9 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
         /// Handles the entity retrieve message.
         /// </summary>
         /// <param name="context">The context.</param>
-        public override void HandleEntityRetrieveMessage(PluginExecutionContext context)
+        public override void HandleRetrieveMessage(PluginExecutionContext context)
         {
-            base.HandleEntityRetrieveMessage(context);
+            base.HandleRetrieveMessage(context);
             var mapper = new GenericMapper(context);
             Entity entity = new Entity(context.PluginContext.PrimaryEntityName);
 
@@ -48,9 +48,9 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
         /// Handles the entity retrieve multiple message.
         /// </summary>
         /// <param name="context">The context.</param>
-        public override void HandleEntityRetrieveMultipleMessage(PluginExecutionContext context)
+        public override void HandleRetrieveMultipleMessage(PluginExecutionContext context)
         {
-            base.HandleEntityRetrieveMultipleMessage(context);
+            base.HandleRetrieveMultipleMessage(context);
 
             var query = context.PluginContext.InputParameters["Query"];
             if (query != null)
@@ -94,7 +94,6 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
                         fetch.count = string.Empty;
                     }
 
-
                     var sql = FetchXml2Sql.Convert(metadata, fetch, new FetchXml2SqlOptions { PreserveFetchXmlOperatorsAsFunctions = false }, out _);
 
                     sql = mapper.MapVirtualEntityAttributes(sql);
@@ -128,6 +127,7 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
                 context.Trace($"Records Retrieved: {dataSet.Tables[0].Rows.Count}", Array.Empty<object>());
                 collection = mapper.CreateEntities(dataSet, pageSize, pageNumber);
             }
+
             return collection;
         }
 
@@ -147,6 +147,5 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
 
             return result as FetchType;
         }
-
     }
 }
