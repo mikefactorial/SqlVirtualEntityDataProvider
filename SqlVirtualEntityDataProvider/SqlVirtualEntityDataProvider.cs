@@ -72,14 +72,30 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
                 var fetch = Deserialize(fetchXml);
                 mapper.MapFetchXml(fetch);
 
+                //Store page info before converting
+                int page = -1;
+                int count = -1;
+                if(!string.IsNullOrEmpty(fetch.page))
+                {
+                    page = Int32.Parse(fetch.page);
+                    fetch.page = string.Empty;
+                }
+
+                if (!string.IsNullOrEmpty(fetch.count))
+                {
+                    count = Int32.Parse(fetch.count);
+                    fetch.count = string.Empty;
+                }
+
+
                 var sql = FetchXml2Sql.Convert(metadata, fetch, new FetchXml2SqlOptions { PreserveFetchXmlOperatorsAsFunctions = false }, out _);
 
                 sql = mapper.MapVirtualEntityAttributes(sql);
                 context.Trace($"SQL: {sql}");
 
-                if (Int32.TryParse(fetch.page, out int pageNumber) && Int32.TryParse(fetch.count, out int pageSize))
+                if (page != -1 && count != -1)
                 {
-                    collection = this.GetEntitiesFromSql(context, mapper, sql, pageSize, pageNumber);
+                    collection = this.GetEntitiesFromSql(context, mapper, sql, count, page);
                 }
                 else
                 {
