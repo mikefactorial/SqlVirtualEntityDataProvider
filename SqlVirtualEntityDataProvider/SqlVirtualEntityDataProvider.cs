@@ -58,7 +58,7 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
                 var mapper = new GenericMapper(context);
 
                 EntityCollection collection = new EntityCollection();
-                string fetchXml = query.ToString();
+                string fetchXml = string.Empty;
                 if (query is QueryExpression qe)
                 {
                     var convertRequest = new QueryExpressionToFetchXmlRequest();
@@ -66,42 +66,49 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
                     var response = (QueryExpressionToFetchXmlResponse)context.Service.Execute(convertRequest);
                     fetchXml = response.FetchXml;
                 }
-                context.Trace($"Pre FetchXML: {fetchXml}");
-
-                var metadata = new AttributeMetadataCache(context.Service);
-                var fetch = Deserialize(fetchXml);
-                mapper.MapFetchXml(fetch);
-
-                //Store page info before converting
-                int page = -1;
-                int count = -1;
-                if(!string.IsNullOrEmpty(fetch.page))
+                else if(query is FetchExpression fe)
                 {
-                    page = Int32.Parse(fetch.page);
-                    fetch.page = string.Empty;
+                    fetchXml = fe.Query;
                 }
 
-                if (!string.IsNullOrEmpty(fetch.count))
+                if(!string.IsNullOrEmpty(fetchXml))
                 {
-                    count = Int32.Parse(fetch.count);
-                    fetch.count = string.Empty;
+                    context.Trace($"Pre FetchXML: {fetchXml}");
+
+                    var metadata = new AttributeMetadataCache(context.Service);
+                    var fetch = Deserialize(fetchXml);
+                    mapper.MapFetchXml(fetch);
+
+                    //Store page info before converting
+                    int page = -1;
+                    int count = -1;
+                    if (!string.IsNullOrEmpty(fetch.page))
+                    {
+                        page = Int32.Parse(fetch.page);
+                        fetch.page = string.Empty;
+                    }
+
+                    if (!string.IsNullOrEmpty(fetch.count))
+                    {
+                        count = Int32.Parse(fetch.count);
+                        fetch.count = string.Empty;
+                    }
+
+
+                    var sql = FetchXml2Sql.Convert(metadata, fetch, new FetchXml2SqlOptions { PreserveFetchXmlOperatorsAsFunctions = false }, out _);
+
+                    sql = mapper.MapVirtualEntityAttributes(sql);
+                    context.Trace($"SQL: {sql}");
+
+                    if (page != -1 && count != -1)
+                    {
+                        collection = this.GetEntitiesFromSql(context, mapper, sql, count, page);
+                    }
+                    else
+                    {
+                        collection = this.GetEntitiesFromSql(context, mapper, sql, -1, 1);
+                    }
                 }
-
-
-                var sql = FetchXml2Sql.Convert(metadata, fetch, new FetchXml2SqlOptions { PreserveFetchXmlOperatorsAsFunctions = false }, out _);
-
-                sql = mapper.MapVirtualEntityAttributes(sql);
-                context.Trace($"SQL: {sql}");
-
-                if (page != -1 && count != -1)
-                {
-                    collection = this.GetEntitiesFromSql(context, mapper, sql, count, page);
-                }
-                else
-                {
-                    collection = this.GetEntitiesFromSql(context, mapper, sql, -1, 1);
-                }
-
                 context.Trace($"Records Returned: {collection.Entities.Count}");
                 context.PluginContext.OutputParameters["BusinessEntityCollection"] = collection;
             }
