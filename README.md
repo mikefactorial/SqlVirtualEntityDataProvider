@@ -7,7 +7,7 @@ The project includes a manaaged / unmanaged solution that you can import and con
 Features:
 
 Display SQL Tables as Virtual Entities using only a connection string to your SQL instance
-Automatically convert FetchXml queries to SQL (Limited but will include more capabilities going forward)
+Automatically convert FetchXml queries to SQL via Sql4Cds.
 Automatically convert integer key values to guids without the need for a guid column in the Azure SQL table
 Display Virtual Entities as lookups on OOB or custom entities or other virtual entities.
 
