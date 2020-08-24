@@ -1,7 +1,7 @@
 # SqlVirtualEntityDataProvider
 A Virtual Entity Data Provider using a direct SQL Connection to Azure SQL / SQL On-Prem. With contributions from <a href='https://github.com/MarkMpn/' target='_blank'>Mark Carrington</a> and <a href='https://github.com/rappen' target='_blank'>Jonas Rapp</a>. Relies on <a href='https://github.com/MarkMpn/Sql4Cds' target='_blank'>Sql4CDS</a> from Mark Carrington.
 
-The project includes a manaaged / unmanaged solution that you can import and configure for a quick start to creating SQL based Virtual Entities as well as the source code to customize to your specific requirements.
+The project includes a managed / unmanaged solution that you can import and configure for a quick start to creating SQL based Virtual Entities as well as the source code to customize to your specific requirements.
 
 <!-- wp:paragraph -->
 Features:
