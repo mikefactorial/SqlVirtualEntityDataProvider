@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Packages\MarkMpn.Sql4Cds.Engine\AttributeMetadataCache.cs" />
+    <Compile Include="App_Packages\MarkMpn.Sql4Cds.Engine\DisconnectedException.cs" />
     <Compile Include="App_Packages\MarkMpn.Sql4Cds.Engine\FetchXml.cs" />
     <Compile Include="App_Packages\MarkMpn.Sql4Cds.Engine\FetchXml2Sql.cs" />
     <Compile Include="App_Packages\MarkMpn.Sql4Cds.Engine\IAttributeMetadataCache.cs" />

@@ -94,7 +94,7 @@ namespace MikeFactorial.Xrm.Plugins.DataProviders
                         fetch.count = string.Empty;
                     }
 
-                    var sql = FetchXml2Sql.Convert(metadata, fetch, new FetchXml2SqlOptions { PreserveFetchXmlOperatorsAsFunctions = false }, out _);
+                    var sql = FetchXml2Sql.Convert(context.Service, metadata, fetch, new FetchXml2SqlOptions { PreserveFetchXmlOperatorsAsFunctions = false }, out _);
 
                     sql = mapper.MapVirtualEntityAttributes(sql);
                     context.Trace($"SQL: {sql}");
